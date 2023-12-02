@@ -1,6 +1,13 @@
 package prolabs
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
+
+type Displayer interface {
+	Display() string
+}
 
 type Prolabs struct {
 	Status bool `json:"status"`
@@ -25,6 +32,10 @@ type Lab struct {
 	Level                      int         `json:"level"`
 	LabServersCount            int         `json:"lab_servers_count"`
 	CoverImgUrl                interface{} `json:"cover_img_url"`
+}
+
+func (l Lab) Display() string {
+	return l.Name
 }
 
 type VpnData struct {
@@ -56,6 +67,10 @@ type VpnServer struct {
 	Full           bool   `json:"full"`
 	CurrentClients int    `json:"current_clients"`
 	Location       string `json:"location"`
+}
+
+func (v VpnServer) Display() string {
+	return fmt.Sprintf("%s (%d users)", v.FriendlyName, v.CurrentClients)
 }
 
 type SwitchVpn struct {

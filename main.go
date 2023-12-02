@@ -33,13 +33,24 @@ func main() {
 	}
 
 	labs, err := prolabs.GetProlabs()
-	lab := prolabs.SelectProLab(labs)
+	if err != nil {
+		fmt.Printf("Error getting prolabs: %s\n", err)
+		return
+	}
+	err, lab := prolabs.SelectProLab(labs)
+	if err != nil {
+		fmt.Printf("Error selecting prolabs: %s\n", err)
+		return
+	}
 	err, vpns := prolabs.GetVpnProlab(lab)
 	if err != nil {
 		fmt.Printf("Error getting VPN prolab: %s", err)
 	}
-	vpn := prolabs.SelectVpn(vpns)
-
+	err, vpn := prolabs.SelectVpn(vpns)
+	if err != nil {
+		fmt.Printf("Error selecting vpn: %s\n", err)
+		return
+	}
 	err = prolabs.SetVpnProlab(lab, vpn)
 	if err != nil {
 		fmt.Printf("Error setting VPN prolab: %s", err)
