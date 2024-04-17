@@ -159,6 +159,8 @@ func Choice[T Displayer](t []T, title string) (error, T) {
 	itemMap := map[string]*T{}
 
 	for _, it := range t {
+		// Required to keep reference to the current item being iterated on
+		it := it
 		items = append(items, item(it.Display()))
 		itemMap[it.Display()] = &it
 	}
