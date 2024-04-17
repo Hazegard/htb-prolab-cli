@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	htb_config "github.com/GoToolSharing/htb-cli/config"
 	"github.com/Hazegard/htb-prolab-cli/config"
 	"github.com/Hazegard/htb-prolab-cli/prolabs"
 	"github.com/Hazegard/htb-prolab-cli/utils"
-	"io"
-	"log"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	"strings"
 )
 
@@ -14,7 +15,15 @@ func main() {
 
 	conf := config.Parse()
 	if !conf.Debug {
-		log.SetOutput(io.Discard)
+		htb_config.GlobalConfig.Logger = zap.New(zapcore.NewNopCore())
+	} else {
+		var err error
+		htb_config.GlobalConfig.Verbose = 2
+		err = htb_config.ConfigureLogger()
+		if err != nil {
+			fmt.Printf("Error intializing logger: %s", err)
+			return
+		}
 	}
 
 	if conf.Help {

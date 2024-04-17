@@ -166,11 +166,11 @@ type Status struct {
 		FriendlyName string `json:"friendly_name"`
 	} `json:"server"`
 	Connection struct {
-		Name          string `json:"name"`
-		ThroughPwnbox bool   `json:"through_pwnbox"`
-		Ip4           string `json:"ip4"`
-		Ip6           string `json:"ip6"`
-		Down          string `json:"down"`
-		Up            string `json:"up"`
+		Name          string  `json:"name"`
+		ThroughPwnbox bool    `json:"through_pwnbox"`
+		Ip4           string  `json:"ip4"`
+		Ip6           string  `json:"ip6"`
+		Down          float64 `json:"down"`
+		Up            float64 `json:"up"`
 	} `json:"connection"`
 }
